@@ -1,0 +1,136 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+@import '~@angular/material/theming';
+@import '~ngx-sharebuttons/themes/modern/modern-light-theme';
+
+$custom-typography: mat-typography-config(
+  $font-family: "'Satoshi', sans-serif"
+);
+@include mat-core($custom-typography);
+
+/* You can add global styles to this file, and also import other style files */
+// /Users/dhawal/Documents/workspace/aureal_web_frontend/src/assets/fonts
+// /Users/dhawal/Documents/workspace/aureal-embed/src/assets/fonts
+@font-face {
+    font-family: "Satoshi";
+    src: url("/src/assets/fonts/Satoshi-Light.otf");
+    src: url('/src/assets/fonts/Satoshi-Light.woff') format('woff');
+    // src: url("/src/assets/fonts/Satoshi-Light.ttf");
+    // src: url('src/assets/fonts/Gotham-Thin.woff') format('woff');
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: "Satoshi";
+    src: url("/src/assets/fonts/Satoshi-Light.otf");
+    src: url('/src/assets/fonts/Satoshi-Light.woff') format('woff');
+    // src: url("/src/assets/fonts/Satoshi-Regular.ttf");
+    // src: url('src/assets/fonts/Gotham-Light.woff') format('woff');
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: "Satoshi";
+    src: url("/src/assets/fonts/Satoshi-Regular.otf");
+    src: url('/src/assets/fonts/Satoshi-Regular.woff') format('woff');
+    // src: url("/src/assets/fonts/Satoshi-Medium.ttf");
+    // src: url('src/assets/fonts/Gotham-Book.woff') format('woff');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Satoshi";
+    src: url("/src/assets/fonts/Satoshi-Medium.otf");
+    src: url('/src/assets/fonts/Satoshi-Medium.woff') format('woff');
+    // src: url("/src/assets/fonts/Satoshi-Bold.ttf");
+    // src: url('src/assets/fonts/Gotham-Medium.woff') format('woff');
+    font-weight: 500;
+  }
+  
+  @font-face {
+    font-family: "Satoshi";
+    src: url("/src/assets/fonts/Satoshi-Bold.otf");
+    src: url('/src/assets/fonts/Satoshi-Bold.woff') format('woff');
+    font-weight: bold;
+  }
+  
+$font-family-base:"Satoshi",
+sans-serif;
+
+body { margin: 0; font-family: "Satoshi", sans-serif;}
+
+
+.mat-slider-horizontal{
+    // cursor: col-resize;
+    // -ms-flex-preferred-size: 100%;
+    // flex-basis: 100%;
+    // height: 10px !important;
+    // opacity: .3;
+    // border-radius: 100px;
+    // background-color: #fff;
+    // display: block;
+    // margin-top: 6px;
+    // position: relative;
+    // min-width: 100%;
+    width: 100%;
+    width: calc(100% - 200px);
+    height: 20px !important;
+    padding: 8px 0px !important;
+    width: calc(100% - 120px) !important;
+
+}
+
+.mat-slider-horizontal .mat-slider-wrapper {
+    height: 7px !important;
+    top: 2px !important;
+    left: 8px !important;
+    right: 8px !important;
+    margin-top: 5px !important;
+} 
+
+.mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label{
+    background: var(--primary);
+}
+
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    background-color: #E8E8E8;
+}
+  
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    background: #E8E8E8;//#FFFFFF;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 10px;
+    border-radius: 10px
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    height: 100%;
+}
+
+.mat-accent .mat-slider-thumb {
+    height: 10px;
+    width: 10px;
+    background-color: #E8E8E8;
+    border: solid 2px #5bc3ef;
+    display: none;
+    // bottom: -20px;
+    // right: -20px;
+}
+
+.sb-group {
+  flex-wrap: wrap !important;
+  padding: 0px !important;
+}
+
+.sb-wrapper {
+  color: var(--accenttwo) !important;
+  background-color:var(--tertiary-background) !important;
+  transition: box-shadow ease-in 150ms, transform ease-in 150ms;
+  border-radius: 10px;
+}
+
+.mat-dialog-container {
+  background: #1e1f21;
+}

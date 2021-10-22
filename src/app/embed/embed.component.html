@@ -1,0 +1,139 @@
+<div class="player-container" [class.overlayed]="overlayEnabled" [class.loadingRender]="initialLoading">
+    <div class="background-img" [style.background-image]="feedArtworkSafe"></div>
+    <content *ngIf="!showMore && !shareOpen">
+      <div class="metadata">
+        <div class="artwork">
+          <div class="artworkBackground" [class.loaded]="artworkSafeLoaded" [style.background-image]="artworkSafeLoaded"></div>
+          <img *ngIf="artworkUrl" [src]="artworkUrl" (load)="artworkLoaded()" style="display:none"/>
+          <button (click)="togglePlayPause()" id="large-playback-control-button" [attr.aria-label]="!state.playing ? 'play' : 'pause'">
+            <img src="/assets/images/large-semi-transparent-play.svg" alt="" *ngIf="!state.playing" load-render>
+            <img class="pauseButton" src="/assets/images/large-semi-transparent-pause.svg" alt="" *ngIf="state.playing">
+          </button>
+        </div>
+        <section>
+          <header>
+            <div class="titles">
+              <h1 [title]="subtitle" class="truncate-overflow">{{subtitle}}</h1>
+              <h2 [title]="title">{{title}}</h2>
+            </div>
+            <div class="logo" id="upper-logo"><img load-render *ngIf="logoSrc" [src]="logoSrc" alt=""></div>
+          </header>
+          <div class="controls">
+            <div class="buttons" (window:keydown)="handleHotkey($event)">
+              <!-- <button (click)="seekBy(-5)" id="rewind-control-button" aria-label="rewind">
+                <img src="/assets/images/back-5.svg" alt="">
+              </button> -->
+              <button (click)="togglePlayPause()" id="playback-control-button" [attr.aria-label]="!state.playing ? 'play' : 'pause'">
+                <img src="/assets/images/play.svg" alt="" *ngIf="!state.playing" load-render>
+                <img class="pauseButton" src="/assets/images/pause.svg" alt="" *ngIf="state.playing">
+              </button>
+              <a href="{{'https://aureal.one/episode/' + episodeData.id}}"  target="_blank">
+                <button class="follow-button">
+                  Follow
+                </button>
+              </a>
+
+              <!-- <button (click)="seekBy(30)" id="forward-control-button" aria-label="fast forward">
+                <img src="/assets/images/forward-30.svg" alt="">
+              </button> -->
+              <!-- <button *ngIf="showPlaylist" (click)="skipTrack()" id="skip-button-1" aria-label="skip">
+                <img src="/assets/images/skip.svg" alt="">
+              </button> -->
+  
+              <!-- <button (click)="cyclePlaybackRate()" id="playback-rate-control-button">
+              <div *ngIf="state.playbackRate === 1">1<span>✕</span></div>
+              <div *ngIf="state.playbackRate === 1.25">1.25<span>✕</span></div>
+              <div *ngIf="state.playbackRate === 1.5">1.5<span>✕</span></div>
+              <div *ngIf="state.playbackRate === 2">2<span>✕</span></div>
+            </button> -->
+            </div>
+  
+            <nav>
+              <!-- <a *ngIf="audioUrl || initialLoading" load-render [href]="audioUrl" (click)="requestDownload($event)" [target]="subscribeTarget">
+                <img class="nav-button" src="/assets/images/download.svg" alt="download">
+              </a> -->
+
+              <a (click)="showInfoToggle()" id="info-button">
+                <img class="nav-button" src="/assets/images/info_white_24dp.svg" alt="info">
+              </a>
+              <a (click)="shareToggle()" >
+                <img class="nav-button" src="/assets/images/more_horiz_black_24dp.svg" alt="share">
+              </a>
+              <!-- <button id="skip-button-2" *ngIf="showPlaylist" (click)="skipTrack()" aria-label="skip">
+                <img src="/assets/images/skip.svg" alt="">
+              </button> -->
+            </nav>
+            <div class="logo" id="lower-logo"><img load-render *ngIf="logoSrc" [src]="logoSrc" alt=""></div>
+          </div>
+          <div class="scrubber">
+            <div class="time-slider">
+              <button (click)="seekBy(-5)" class="rewind-control-button" aria-label="rewind">
+                <img src="/assets/images/back-5.svg" alt="">
+              </button>
+              <!-- <span class="playback-progress loaded mr-3">{{ state?.readableCurrentTime }}</span> -->
+              <mat-slider min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"
+                (input)="onSliderChangeEnd($event)" [disabled]="state?.error"></mat-slider>
+              <button (click)="seekBy(30)" class="forward-control-button" aria-label="fast forward">
+                <img src="/assets/images/forward-30.svg" alt="">
+              </button>
+              <span class="duration loaded ml-3">{{ state.currentTime > 0 ? state?.readableCurrentTime : state.readableDuration}}</span>
+            </div>
+          </div>
+        </section>
+      </div>
+  
+
+      <!-- <div class="overlayContent"><ng-container *ngTemplateOutlet="overlayTemplate; context:overlayContext"></ng-container></div> -->
+    </content>
+    <content *ngIf="showMore" class="show-more">
+      <div class="close-icon">
+        <a (click)="showInfoToggle()" id="share-button">
+          <img class="nav-button" src="/assets/images/close_white_24dp.svg" alt="close">
+        </a>
+      </div>
+      <div>
+        <h4 [title]="title">{{title}}</h4>
+        <h3 [title]="subtitle">{{subtitle}}</h3>
+        <h5> {{episodeData.author}}</h5>
+        <p [innerHTML]="episodeData.summary">
+        </p>
+      </div>
+    </content>
+
+    <content *ngIf="shareOpen" class="show-more">
+      <div class="close-icon">
+        <a (click)="shareToggle()" id="share-button">
+          <img class="nav-button" src="/assets/images/close_white_24dp.svg" alt="close">
+        </a>
+      </div>
+      <div class="share-part">
+        <div class="share-episode">
+          <a class="each-line" href="{{'https://aureal.one/episode/' + episodeData.id}}" target="_blank" >
+            <img class="nav-button" src="/assets/images/radio_white_24dp.svg" alt="listen">
+            <div>Listen on Aureal</div>
+          </a>
+          <a class="each-line" href="{{'https://aureal.one/episode/' + episodeData.id}}" target="_blank" >
+            <img class="nav-button" src="/assets/images/person_add_alt_white_24dp.svg" alt="follow">
+            <div>Follow on Aureal</div>
+          </a>
+          <a class="each-line" (click)="share()">
+            <img class="nav-button" src="/assets/images/ios_share_white_24dp.svg" alt="share">
+            <div>Share</div>
+          </a>
+        </div>
+        <div class="other-part">
+          <div class="downloader">
+            <img src="/assets/images/appstore.png" alt="Appstore">
+            <img src="/assets/images/playstore.png" alt="Playstore">
+          </div>
+          <div class="logo-part">
+            <img src="/assets/images/Aureal_full_light.png" alt="Aureal logo">
+            <!-- <div class="yourvoiceisworthsomething">
+              #yourvoiceisworthsomething
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </content>
+  </div>
+  

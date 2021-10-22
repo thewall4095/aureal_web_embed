@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="120px" height="120px" viewbox="0 0 120 120"
+preserveAspectRatio="none">
+  <g transform="translate(10,10)">
+    <path d="m50,20 L50,80 M20,50 L80,50" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" />
+  </g>
+</svg>
