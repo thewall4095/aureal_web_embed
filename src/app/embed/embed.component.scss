@@ -22,20 +22,20 @@
 }
 
 .background-img {
-filter: blur(15px);
--webkit-filter: blur(15px);
--moz-filter: blur(15px);
--o-filter: blur(15px);
-margin: -25px;
-/* to account for the white-edge blurring from the filter: blur */
-min-height: calc(100% + 50px);
-width: calc(100% + 50px);
-/* 183px of content (sans border) + 50 to account for the -25px margins */
-background-size: cover;
-position: relative;
-z-index: -1;
-background-position: center center;
-background-color: rgba(0, 0, 0, 0.5);
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    margin: -25px;
+    /* to account for the white-edge blurring from the filter: blur */
+    min-height: calc(100% + 50px);
+    width: calc(100% + 50px);
+    /* 183px of content (sans border) + 50 to account for the -25px margins */
+    background-size: cover;
+    position: relative;
+    z-index: -1;
+    background-position: center center;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .overlayContent {
