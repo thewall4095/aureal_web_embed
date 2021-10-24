@@ -52,6 +52,10 @@ export class EmbedComponent implements OnInit {
     });
   }
 
+  formatLabel(value: number) {
+    return value;
+  }
+
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       this.episodeId = paramMap.get("episode_id");

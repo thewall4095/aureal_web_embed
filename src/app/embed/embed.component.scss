@@ -63,26 +63,35 @@ pointer-events: all;
 }
 
 content {
-// background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); //might need
-position: fixed;
-left: 0;
-right: 0;
-top: 0;
-bottom: 0;
-// border-radius: 5px;
-box-sizing: border-box;
-display: flex;
-flex-flow: column nowrap;
-max-height: 200px;
-align-items: center;
+    // background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); //might need
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    // border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    max-height: 200px;
+    align-items: center;
+
 }
 
 .metadata {
-flex: 0 0 calc(117px + 30px);
-display: flex;
-position: relative;
-width: 100%;
-max-width: 750px;
+    flex: 0 0 calc(117px + 30px);
+    display: flex;
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    .aureal-logo{
+        position: absolute;
+        top: 2px;
+        right: 20px;
+        img{
+            height: 20px;
+        }
+    }
 }
 
 .artwork {
@@ -573,22 +582,31 @@ margin-top: 2px;
                 margin-right: 10px;
                 width: 20px;
                 height: 20px;
-                padding: 5px;
+                padding: 4px;
             }
-            margin-bottom: 10px;
+            padding: 4px;
+            text-decoration: none;
+      
         }
     }
     .other-part{
         display: flex;
         align-items: flex-end;
+        margin-top: 10px;
         justify-content: space-between;
         .downloader{
             display: flex;
             align-items: center;
+            .button{
+                background: rgba(255, 255, 255, 0.3);
+                padding: 3px 15px;
+                margin-right: 15px;
+                border-radius: 25px;
+            }
             img{
-                width: 100px;
+                width: 30px;
                 height: 30px;
-                margin-right: 20px;
+                margin-right: 0px;
                 margin-left: 0;
                 border-radius: 4px;
             }

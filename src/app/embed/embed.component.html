@@ -45,7 +45,8 @@
               <button (click)="seekBy(-5)" class="rewind-control-button" aria-label="rewind">
                 <img src="/assets/images/back-5.svg" alt="">
               </button>
-              <mat-slider min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"
+              <mat-slider thumbLabel
+              [displayWith]="formatLabel" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"
                 (input)="onSliderChangeEnd($event)" [disabled]="state?.error"></mat-slider>
               <button (click)="seekBy(30)" class="forward-control-button" aria-label="fast forward">
                 <img src="/assets/images/forward-30.svg" alt="">
@@ -54,6 +55,11 @@
             </div>
           </div>
         </section>
+        <div class="aureal-logo">
+          <a href="https://aureal.one" target="_blank">
+            <img src="/assets/images/Aureal_full_light.png" alt="Aureal logo">
+          </a>
+        </div>
       </div>
     </content>
     <content *ngIf="showMore" class="show-more">
@@ -94,8 +100,14 @@
         </div>
         <div class="other-part">
           <div class="downloader">
-            <img src="/assets/images/appstore.png" alt="Appstore">
-            <img src="/assets/images/playstore.png" alt="Playstore">
+            <a class="each-line button" href="https://apps.apple.com/in/app/aureal/id1569963165" target="_blank" >
+              <img src="/assets/images/app_store_icon.svg" alt="Appstore">
+              <div>App Store</div>
+            </a>
+            <a class="each-line button" href="https://play.google.com/store/apps/details?id=co.titandlt.auditory" target="_blank" >
+              <img src="/assets/images/play_store_icon.svg" alt="Playstore">
+              <div>Google Play</div>
+            </a>
           </div>
           <div class="logo-part">
             <img src="/assets/images/Aureal_full_light.png" alt="Aureal logo">
