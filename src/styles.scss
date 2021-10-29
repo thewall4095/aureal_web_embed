@@ -5,7 +5,7 @@ html, body { height: 100%; }
 @import '~ngx-sharebuttons/themes/modern/modern-light-theme';
 
 @font-face {
-  font-family: 'Satoshi-Regular';
+  font-family: 'Satoshi';
   src: url('/assets/fonts/Satoshi-Regular.woff2') format('woff2'),
        url('/assets/fonts/Satoshi-Regular.woff') format('woff'),
        url('/assets/fonts/Satoshi-Regular.ttf') format('truetype');
@@ -14,8 +14,18 @@ html, body { height: 100%; }
        font-style: normal;
 }
 
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/assets/fonts/Satoshi-Bold.woff2') format('woff2'),
+       url('/assets/fonts/Satoshi-Bold.woff') format('woff'),
+       url('/assets/fonts/Satoshi-Bold.ttf') format('truetype');
+       font-weight: 500;
+       font-display: swap;
+       font-style: normal;
+}
+
 $custom-typography: mat-typography-config(
-  $font-family: "'Satoshi-Regular', sans-serif;"
+  $font-family: "'Satoshi', sans-serif;"
 );
 @include mat-core($custom-typography);
 
