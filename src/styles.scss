@@ -4,58 +4,25 @@ html, body { height: 100%; }
 @import '~@angular/material/theming';
 @import '~ngx-sharebuttons/themes/modern/modern-light-theme';
 
+@font-face {
+  font-family: 'Satoshi-Regular';
+  src: url('/assets/fonts/Satoshi-Regular.woff2') format('woff2'),
+       url('/assets/fonts/Satoshi-Regular.woff') format('woff'),
+       url('/assets/fonts/Satoshi-Regular.ttf') format('truetype');
+       font-weight: 400;
+       font-display: swap;
+       font-style: normal;
+}
+
 $custom-typography: mat-typography-config(
-  $font-family: "'Satoshi', sans-serif"
+  $font-family: "'Satoshi-Regular', sans-serif;"
 );
 @include mat-core($custom-typography);
 
-/* You can add global styles to this file, and also import other style files */
-// /Users/dhawal/Documents/workspace/aureal_web_frontend/src/assets/fonts
-// /Users/dhawal/Documents/workspace/aureal-embed/src/assets/fonts
-@font-face {
-    font-family: "Satoshi";
-    src: url("/src/assets/fonts/Satoshi-Light.otf");
-    src: url('/src/assets/fonts/Satoshi-Light.woff') format('woff');
-    // src: url("/src/assets/fonts/Satoshi-Light.ttf");
-    // src: url('src/assets/fonts/Gotham-Thin.woff') format('woff');
-    font-weight: 100;
-  }
-  @font-face {
-    font-family: "Satoshi";
-    src: url("/src/assets/fonts/Satoshi-Light.otf");
-    src: url('/src/assets/fonts/Satoshi-Light.woff') format('woff');
-    // src: url("/src/assets/fonts/Satoshi-Regular.ttf");
-    // src: url('src/assets/fonts/Gotham-Light.woff') format('woff');
-    font-weight: 300;
-  }
-  @font-face {
-    font-family: "Satoshi";
-    src: url("/src/assets/fonts/Satoshi-Regular.otf");
-    src: url('/src/assets/fonts/Satoshi-Regular.woff') format('woff');
-    // src: url("/src/assets/fonts/Satoshi-Medium.ttf");
-    // src: url('src/assets/fonts/Gotham-Book.woff') format('woff');
-    font-weight: 400;
-  }
-  @font-face {
-    font-family: "Satoshi";
-    src: url("/src/assets/fonts/Satoshi-Medium.otf");
-    src: url('/src/assets/fonts/Satoshi-Medium.woff') format('woff');
-    // src: url("/src/assets/fonts/Satoshi-Bold.ttf");
-    // src: url('src/assets/fonts/Gotham-Medium.woff') format('woff');
-    font-weight: 500;
-  }
-  
-  @font-face {
-    font-family: "Satoshi";
-    src: url("/src/assets/fonts/Satoshi-Bold.otf");
-    src: url('/src/assets/fonts/Satoshi-Bold.woff') format('woff');
-    font-weight: bold;
-  }
-  
-$font-family-base:"Satoshi",
-sans-serif;
+// $font-family-base:"Satoshi",
+// sans-serif;
 
-body { margin: 0; font-family: "Satoshi", sans-serif;}
+// body { margin: 0; font-family: "Satoshi", sans-serif;}
 
 
 .mat-slider-horizontal{
