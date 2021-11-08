@@ -111,3 +111,7 @@ $custom-typography: mat-typography-config(
 .mat-dialog-container {
   background: #1e1f21;
 }
+
+.mat-slider-horizontal {
+  min-width: 90px !important;
+}

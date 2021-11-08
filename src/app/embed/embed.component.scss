@@ -89,7 +89,8 @@ content {
         top: 2px;
         right: 20px;
         img{
-            height: 20px;
+            height: 3vw;
+            max-height: 20px;
         }
     }
 }
@@ -129,6 +130,7 @@ transition: width 0.2s, height 0.2s;
     height: 90px;
     min-width: 90px;
     min-height: 90px;
+    margin: auto 15px;
 }
 .metadata {
     flex: 0 0 120px;
@@ -243,15 +245,23 @@ color: #ffffff;
 }
 
 h1 {
-    line-height: 25px;
+    line-height: 1.4em;
     font-size: 18px;
     font-weight: 500;
+    @media (max-width: 767px) {
+        font-size: 12px;
+    }
 }
 
 h2 {
-    margin-top: 11px;
+    margin-top: 0px;
     // height: 20px;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.3em;
+    margin-bottom: 5px;
+    @media (max-width: 767px) {
+        font-size: 10px;
+    }
 }
 
 .logo {
@@ -355,15 +365,19 @@ color: #1e4e5c;
 }
 
 .nav-button {
-width: 25px;
-height: 25px;
-padding: 5px;
-border-radius: 50%;
-// border: 1.5px solid gray;
-background: inherit;
-margin-bottom: 2px; /* This is a bit of a hack to fix border clipping */
-transition: width 0.2s, height 0.2s;
-background: hsla(0,0%,100%,.3);
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 50%;
+    // border: 1.5px solid gray;
+    background: inherit;
+    margin-bottom: 2px; /* This is a bit of a hack to fix border clipping */
+    transition: width 0.2s, height 0.2s;
+    background: hsla(0,0%,100%,.3);
+    @media (max-width: 767px) {
+        width: 10px;
+        height: 10px;
+    }
 }
 
 .overlayed .nav-button {
@@ -405,12 +419,15 @@ position: relative;
 
 .playback-progress,
 .duration {
-text-align: center;
-font-size: 14px;
-line-height: 1.5;
-color: #ffffff;
-opacity: 0;
-transition: opacity 0.2s;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s;
+    @media (max-width: 400px) {
+        font-size: 10px;
+    }
 }
 
 .playback-progress.loaded, .duration.loaded {
@@ -505,11 +522,17 @@ margin-top: 2px;
         margin-right: 0;
         width: 20px;
         height: 20px;
+        @media (max-width: 400px) {
+            display: none;
+        }
     }
     .forward-control-button{
         margin-left: 0;
         width: 20px;
         height: 20px;
+        @media (max-width: 400px) {
+            display: none;
+        }
     }
 }
 
@@ -531,6 +554,9 @@ margin-top: 2px;
     // max-width: 750px;
 
     padding: 15px 25px;
+    @media (max-width: 767px) {
+        padding: 15px;
+    }
     background: #1e1f21;
     margin: 0 auto;
     overflow-y: auto;
@@ -586,7 +612,9 @@ margin-top: 2px;
             }
             padding: 4px;
             text-decoration: none;
-      
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
         }
     }
     .other-part{
@@ -594,14 +622,21 @@ margin-top: 2px;
         align-items: flex-end;
         margin-top: 10px;
         justify-content: space-between;
+        flex-wrap: wrap;
         .downloader{
             display: flex;
             align-items: center;
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
             .button{
                 background: rgba(255, 255, 255, 0.3);
                 padding: 3px 15px;
                 margin-right: 15px;
                 border-radius: 25px;
+                @media (max-width: 767px) {
+                    padding: 3px 7px;
+                }
             }
             img{
                 width: 30px;
@@ -609,6 +644,10 @@ margin-top: 2px;
                 margin-right: 0px;
                 margin-left: 0;
                 border-radius: 4px;
+                @media (max-width: 767px) {
+                    width: 15px;
+                    height: 15px;
+                }
             }
         }
         .logo-part{
@@ -618,6 +657,12 @@ margin-top: 2px;
             img{
                 width: 130px;
                 margin-left: 20px;
+            }
+            @media (max-width: 767px) {
+                margin-top: 10px;
+                img{
+                    margin-left: 0px;
+                }
             }
             .yourvoiceisworthsomething{
                 color: #DCDDDE;
