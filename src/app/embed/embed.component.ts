@@ -66,9 +66,9 @@ export class EmbedComponent implements OnInit {
           this.episodeData = res.episode;
           this.title = this.episodeData.podcast_name;
           this.subtitle = this.episodeData.name;
-          this.artworkUrl = this.episodeData.image;
+          this.artworkUrl = this.episodeData.image ? this.episodeData.image : this.episodeData.podcast_image;
           this.artworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.artworkUrl}')`);
-          this.feedArtworkUrl = this.episodeData.podcast_image;
+          this.feedArtworkUrl = this.artworkUrl;
           if (this.feedArtworkUrl) {
             this.feedArtworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.feedArtworkUrl}')`);
           } else {
