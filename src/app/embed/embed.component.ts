@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { ApiService } from '../api.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
@@ -6,6 +6,7 @@ import { AudioService } from '../audio.service';
 import { StreamState } from './../stream-state';
 import { SocialShareComponent } from './../social-share/social-share.component'
 import { MatDialog } from "@angular/material/dialog";
+import Vibrant from 'node-vibrant';
 
 @Component({
   selector: 'app-embed',
@@ -23,7 +24,7 @@ export class EmbedComponent implements OnInit {
     canplay: false,
     error: false,
   };
-  showMore: Boolean = false;
+  aboutData: Boolean = false;
   shareOpen:Boolean = false;
   artworkSafe!: SafeStyle;
   feedArtworkSafe!: SafeStyle;
@@ -38,13 +39,19 @@ export class EmbedComponent implements OnInit {
   logoSrc: string = '';
   audioUrl: string = '';
 
+  themeColor:any;
+  otherEpisodesLoading: Boolean = false;
+  otherEpisodes:any;
+  @ViewChild("allcontent", { static: false }) allcontent: ElementRef | undefined;
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
     private audioService: AudioService,
     private sanitizer: DomSanitizer,
     public dialog: MatDialog,
+    public router: Router
   ) { 
+
     this.audioService.getState()
     .subscribe(state => {
       this.state = state;
@@ -53,37 +60,88 @@ export class EmbedComponent implements OnInit {
   }
 
   formatLabel(value: number) {
-    return value;
+    const minutes: number = Math.floor(value / 60);
+    const minutestring = minutes > 9 ? minutes : ('0'+minutes);
+    const secondstring = (value - minutes * 60) > 9 ? (value - minutes * 60).toFixed() : ('0'+(value - minutes * 60).toFixed());
+    return minutestring + ':' + secondstring;
   }
+  showOtherEpisodes: Boolean = false;
 
   ngOnInit(): void {
+    console.log(this.allcontent?.nativeElement?.offsetHeight);
+
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       this.episodeId = paramMap.get("episode_id");
       this.apiService.get('https://api.aureal.one/public/getEpisode?episode_id=' + this.episodeId)
         .subscribe((res: any) => {
           console.log(res);
-          // this.progress = false;
-          this.episodeData = res.episode;
-          this.title = this.episodeData.podcast_name;
-          this.subtitle = this.episodeData.name;
-          this.artworkUrl = this.episodeData.image ? this.episodeData.image : this.episodeData.podcast_image;
-          this.artworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.artworkUrl}')`);
-          this.feedArtworkUrl = this.artworkUrl;
-          if (this.feedArtworkUrl) {
-            this.feedArtworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.feedArtworkUrl}')`);
-          } else {
-            this.feedArtworkSafe = this.sanitizer.bypassSecurityTrustStyle(`none`);
-          }
-          this.initialLoading = false;
-          this.audioService.playStream(this.episodeData.url)
-          .subscribe((events:any) => {
-            console.log(events);
-            if(events?.type == 'canplay'){
-              this.state.canplay = true;
-            }
-            // listening for fun here
-          });
+          this.setEpisodeData(res.episode);
         });
+    });
+  }
+
+  setEpisodeData(episodeData:any){
+    this.episodeId = episodeData.id;
+    this.episodeData = episodeData;
+    console.log(this.allcontent?.nativeElement?.offsetHeight);
+    if(this.allcontent?.nativeElement?.offsetHeight > 300){
+      this.showOtherEpisodes = true;
+    }
+    this.getOtherEpisodes();
+    this.title = this.episodeData.podcast_name;
+    this.subtitle = this.episodeData.name;
+    this.artworkUrl = this.episodeData.image ? this.episodeData.image : this.episodeData.podcast_image;
+    this.artworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.artworkUrl}')`);
+    this.feedArtworkUrl = this.artworkUrl;
+    this.getVibrantColor(this.artworkUrl);
+    if (this.feedArtworkUrl) {
+      this.feedArtworkSafe = this.sanitizer.bypassSecurityTrustStyle(`url('${this.feedArtworkUrl}')`);
+    } else {
+      this.feedArtworkSafe = this.sanitizer.bypassSecurityTrustStyle(`none`);
+    }
+    this.initialLoading = false;
+    this.audioService.playStream(this.episodeData.url)
+    .subscribe((events:any) => {
+      console.log(events);
+      if(events?.type == 'canplay'){
+        this.state.canplay = true;
+      }
+      // listening for fun here
+    });
+  }
+
+  playOtherEpisode(episode:any){
+    // this.router.navigateByUrl('/'+episode.id);
+    this.setEpisodeData(episode);
+  }
+
+  getOtherEpisodes(){
+    this.otherEpisodesLoading = true;
+    this.apiService.get('https://api.aureal.one/public/getOtherEpisode?episode_id=' + this.episodeId + '&podcast_id=' + this.episodeData.podcast_id).subscribe((res:any) => {
+      this.otherEpisodes = res.episodes;
+      this.otherEpisodesLoading = false;
+    })
+  }
+
+  formatDuration(seconds:any) {
+    // return (Math.floor(moment.duration(seconds, 'seconds').asHours()) > 0 ? Math.floor(moment.duration(seconds, 'seconds').asHours()) + ':' : '') + moment.duration(seconds, 'seconds').minutes() + ':' + moment.duration(seconds, 'seconds').seconds();
+    if((Math.floor(parseInt(seconds) / 60)) > 0){
+      return Math.floor(parseInt(seconds) / 60 ) + ' min';
+    }else{
+      return Math.floor(parseInt(seconds) ) + ' sec';
+    }
+  }
+
+
+  getVibrantColor(url: string){
+    // Using builder
+    Vibrant.from('https://aureal-image-proxy.herokuapp.com/'+url).getPalette((err, palette:any) => {
+      if(err){
+        console.log(err)
+      }else{
+        console.log(palette);
+        this.themeColor = 'rgba(' + palette.DarkMuted['_rgb'].join(',')+ ')';
+      }
     });
   }
 
@@ -102,7 +160,7 @@ export class EmbedComponent implements OnInit {
   }
 
   showInfoToggle(){
-    this.showMore = !this.showMore;
+    this.aboutData = !this.aboutData;
   }
 
   handleHotkey(event: KeyboardEvent): void {

@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    max-height: 200px;
+    max-height: 500px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -19,6 +19,9 @@
 }
 .player-container {
     height: 100%;
+    width: 768px;
+    overflow: hidden;
+    margin: auto;
 }
 
 .background-img {
@@ -35,55 +38,72 @@
     position: relative;
     z-index: -1;
     background-position: center center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #111111;
 }
 
 .overlayContent {
-position: absolute;
-color: white;
-margin: 5px 14px;
-top: 125px;
-bottom: 0;
-left: 0; right: 0;
-margin: auto;
-max-width: 750px;
-width: auto;
-height: auto;
-opacity: 0;
-transform: scale(2.0);
-pointer-events: none;
-transition: top 0.2s, opacity 0.2s, transform 0.2s;
+    position: absolute;
+    color: white;
+    margin: 5px 14px;
+    top: 125px;
+    bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    max-width: 768px;
+    width: auto;
+    height: auto;
+    opacity: 0;
+    transform: scale(2.0);
+    pointer-events: none;
+    transition: top 0.2s, opacity 0.2s, transform 0.2s;
 }
 
 .overlayed .overlayContent {
-opacity: 1;
-top: 65px;
-transform: scale(1.0);
-pointer-events: all;
+    opacity: 1;
+    top: 65px;
+    transform: scale(1.0);
+    pointer-events: all;
 }
 
 content {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); //might need
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)); //might need
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    bottom: 0;
+    margin:auto;
+    max-width: 768px;
     // border-radius: 5px;
     box-sizing: border-box;
     display: flex;
     flex-flow: column nowrap;
-    max-height: 200px;
+    max-height: 500px;
     align-items: center;
 
 }
 
 .metadata {
-    flex: 0 0 calc(117px + 30px);
+    // flex: 0 0 calc(117px + 30px);
     display: flex;
     position: relative;
-    width: 100%;
-    max-width: 750px;
+    width: calc(100% - 30px);
+    max-width: 100%;
+    padding: 15px;
+    min-height: 170px;
+    .other-episodes{
+        font-size: 16px;
+        font-weight: 500;
+        color: #EEEEEE;
+    }
+    .scrollable-section{
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
     .aureal-logo{
         position: absolute;
         top: 2px;
@@ -93,21 +113,79 @@ content {
             max-height: 20px;
         }
     }
+
+    .each-episode{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        margin: 5px 0;
+        .image-part{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img{
+              width: 50px;
+              height: 50px;
+              border-radius: 4px;
+            }
+        }
+        .glass-icon{
+            display: none;
+            width: 20px;
+            padding: 5px;
+            height: 20px;
+            position: absolute;
+            img{
+                width: 80%;
+                height: 70%;
+            }
+        }
+        &:hover{
+            background: rgba(0, 0, 0, 0.5);
+            .bg-overlay, .button-sec{
+                display: block;
+            }
+            // cursor: pointer;
+            .custom-glass-icon{
+                display: flex;
+            }
+            .fade-sec{
+                display: block;
+            }
+        }
+        .episode-name{
+            font-size: 15px;
+            color: #EEEEEE;
+            margin-left: 10px;
+        }
+        .episode-duration{
+            font-size: 12px;
+            color: #BBBBBB;
+            font-weight: 500;
+            margin-left: 10px;
+            margin-right: 5px;
+            display: flex;
+            flex-direction: column;
+            min-width: 75px;
+            text-align: end;
+        }
+    }
 }
 
 .artwork {
-width: 117px;
-height: 117px;
-min-width: 117px;
-min-height: 117px;
-box-sizing: border-box;
-position: relative;
-margin: 15px;
-border-radius: 8px;
-// border: solid 1px #ffffff;
-background-color: white;
-align-self: flex-start;
-transition: width 0.2s, height 0.2s;
+    width: 117px;
+    height: 117px;
+    min-width: 117px;
+    min-height: 117px;
+    box-sizing: border-box;
+    position: relative;
+    margin-right: 15px;
+    border-radius: 8px;
+    // border: solid 1px #ffffff;
+    background-color: #222222;
+    align-self: flex-start;
+    transition: width 0.2s, height 0.2s;
 }
 
 /* size the artwork appropriately according to the screen size */
@@ -120,120 +198,120 @@ transition: width 0.2s, height 0.2s;
     min-height: 100px;
 }
 .metadata {
-    flex: 0 0 130px;
+    // flex: 0 0 130px;
 }
 }
 
 @media (max-height: 160px) {
-.artwork {
-    width: 90px;
-    height: 90px;
-    min-width: 90px;
-    min-height: 90px;
-    margin: auto 15px;
-}
-.metadata {
-    flex: 0 0 120px;
-}
+    .artwork {
+        width: 90px;
+        height: 90px;
+        min-width: 90px;
+        min-height: 90px;
+        margin: auto 15px;
+    }
+    .metadata {
+        // flex: 0 0 120px;
+    }
 }
 
 @media (min-height: 185px) {
-.artwork {
-    width: 125px;
-    height: 125px;
-    min-width: 125px;
-    min-height: 125px;
-}
-.metadata {
-    flex: 0 0 155px;
-}
+    .artwork {
+        width: 125px;
+        height: 125px;
+        min-width: 125px;
+        min-height: 125px;
+    }
+    .metadata {
+        // flex: 0 0 155px;
+    }
 }
 
 @media (min-height: 195px) {
-.artwork {
-    width: 170px;
-    height: 170px;
-    min-width: 170px;
-    min-height: 170px;
-}
-.metadata {
-    flex: 0 0 220px;
-}
+    .artwork {
+        width: 170px;
+        height: 170px;
+        min-width: 170px;
+        min-height: 170px;
+    }
+    .metadata {
+        // flex: 0 0 200px;
+    }
 }
 
 .overlayed .artwork {
-flex: auto 0 0;
-width: 52px;
-height: 52px;
-min-width: 52px;
-min-height: 52px;
+    flex: auto 0 0;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
 }
 
 .artwork .artworkBackground {
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background-size: cover;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.2s;
-border-radius: 5px;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    border-radius: 5px;
 }
 
 .artwork .artworkBackground.loaded {
-opacity: 1;
+    opacity: 1;
 }
 
 #large-playback-control-button {
-margin: auto !important;
-position: absolute;
-width: 60px; height: 60px;
-transition: width 0.2s, height 0.2s, opacity 0.2s;
-top: 0; left: 0; bottom: 0; right: 0;
-pointer-events: none;
-opacity: 0;
-cursor: pointer;
+    margin: auto !important;
+    position: absolute;
+    width: 60px; height: 60px;
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    top: 0; left: 0; bottom: 0; right: 0;
+    pointer-events: none;
+    opacity: 0;
+    cursor: pointer;
 }
 
 #large-playback-control-button img {
-width: 100%;
-height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .overlayed #large-playback-control-button {
-width: 40px;
-height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 section {
-flex-grow: 1;
-width: 1px;
-display: flex;
-flex-flow: column nowrap;
-justify-content: space-between;
-margin: 20px 15px 15px 0;
+    flex-grow: 1;
+    width: 1px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    margin: 0;
 }
 
 header {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-x: hidden;
 }
 
 .titles {
-overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 h1,
 h2 {
-margin: 0;
-border: 0;
-padding: 0;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-font-weight: normal;
-color: #ffffff;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    // overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    color: #EEEEEE;
 }
 
 .truncate-overflow {
@@ -265,103 +343,103 @@ h2 {
 }
 
 .logo {
-width: auto;
-height: 30px;
-display: none;
-margin-left: 5px;
+    width: auto;
+    height: 30px;
+    display: none;
+    margin-left: 5px;
 }
 
 .logo > img {
-width: auto;
-height: 100%;
+    width: auto;
+    height: 100%;
 }
 
 .controls {
-display: flex;
-justify-content: space-between;
-max-height: 30px;
+    display: flex;
+    justify-content: space-between;
+    // max-height: 30px;
 }
 
 #lower-logo {
-position: absolute;
-right: 10px;
-top: 100%;
-transition: top 0.2s;
-margin-top: -40px;
+    position: absolute;
+    right: 10px;
+    top: 100%;
+    transition: top 0.2s;
+    margin-top: -40px;
 }
 
 .overlayed #lower-logo {
-top: 55px;
+    top: 55px;
 }
 
 .buttons {
-display: flex;
-opacity: 1;
-position: relative;
-top: 0;
-transition: opacity 0.2s, top 0.2s;
+    display: flex;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    transition: opacity 0.2s, top 0.2s;
 }
 
 .buttons button {
-transition:  width 0.2s, height 0.2s;
+    transition:  width 0.2s, height 0.2s;
 }
 
 .overlayed .buttons {
-top: -50px;
-opacity: 0;
+    top: -50px;
+    opacity: 0;
 }
 
 .overlayed .buttons button {
-width: 0; height: 0;
+    width: 0; height: 0;
 }
 
 button {
-width: 30px;
-height: 30px;
-margin-right: 15px;
-border: 0;
-padding: 0;
-background: none;
-cursor: pointer;
-justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    justify-content: center;
 }
 
 button img {
-height: 100%;
-width: auto;
+    height: 100%;
+    width: auto;
 }
 
 button:focus {
-outline: 0;
+    outline: 0;
 }
 
 nav {
-display: flex;
-align-items: center;
-opacity: 1;
-position: relative;
-top: 0;
-transition: opacity 0.2s, top 0.2s;
+    display: flex;
+    align-items: center;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    transition: opacity 0.2s, top 0.2s;
 }
 
 .overlayed nav {
-opacity: 0;
-top: -50px;
+    opacity: 0;
+    top: -50px;
 }
 
 nav a {
-margin-right: 15px;
-text-decoration: none;
-color: #0089bd;
-cursor: pointer;
+    margin-right: 15px;
+    text-decoration: none;
+    color: #0089bd;
+    cursor: pointer;
 }
 
 nav a:last-child {
-margin-right: 0;
+    margin-right: 0;
 }
 
 nav a:hover {
-color: #1e4e5c;
+    color: #1e4e5c;
 }
 
 .nav-button {
@@ -373,7 +451,7 @@ color: #1e4e5c;
     background: inherit;
     margin-bottom: 2px; /* This is a bit of a hack to fix border clipping */
     transition: width 0.2s, height 0.2s;
-    background: hsla(0,0%,100%,.3);
+    background: hsla(0,0%,100%,.1);
     @media (max-width: 767px) {
         width: 10px;
         height: 10px;
@@ -396,7 +474,8 @@ position: relative;
 top: 0;
 transition: opacity 0.2s, top 0.2s;
 width: 100%;
-max-width: 750px;
+max-width: 768px;
+
 }
 
 .overlayed .scrubber {
@@ -422,7 +501,7 @@ position: relative;
     text-align: center;
     font-size: 14px;
     line-height: 1.5;
-    color: #ffffff;
+    color: #EEEEEE;
     opacity: 0;
     transition: opacity 0.2s;
     @media (max-width: 400px) {
@@ -461,14 +540,12 @@ opacity: 0.1;
 
 .loadingRender h1 {
 width: 200px;
-background-color: white;
-border-radius: 20px;
+background-color: #222222;
 }
 
 .loadingRender h2 {
 width: 140px;
-background-color: white;
-border-radius: 20px;
+background-color: #222222;
 margin-top: 2px;
 }
 
@@ -544,22 +621,26 @@ margin-top: 2px;
     text-align: center;
     font-weight: bold;
     width: fit-content;
-    // border: 1px solid rgba(255, 255, 255, 0.3);
-    background: hsla(0,0%,100%,.3);
+    // border: 1px solid rgba(255, 255, 255, 0.1);
+    background: hsla(0,0%,100%,.1);
     color: white;
     font-size: 12px;
     font-weight: 500;
 }
 .show-more{
-    // max-width: 750px;
-
+    max-width: 768px;
     padding: 15px 25px;
     @media (max-width: 767px) {
         padding: 15px;
     }
-    background: #1e1f21;
+    background: inherit;
     margin: 0 auto;
     overflow-y: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     // position: relative;
     .close-icon{
         position: absolute;
@@ -568,7 +649,7 @@ margin-top: 2px;
     }
     h4{
         font-size: 12px;
-        color: #8e9297;
+        color: #BBBBBB;
         font-weight: bold;
         padding-bottom: 8px;
         text-transform: uppercase;
@@ -581,7 +662,7 @@ margin-top: 2px;
     }
     h5{
         font-size: 12px;
-        color: #8e9297;
+        color: #BBBBBB;
         padding-bottom: 8px;
         text-transform: uppercase;
         font-weight: 400;
@@ -630,7 +711,7 @@ margin-top: 2px;
                 font-size: 12px;
             }
             .button{
-                background: rgba(255, 255, 255, 0.3);
+                background: rgba(255, 255, 255, 0.1);
                 padding: 3px 15px;
                 margin-right: 15px;
                 border-radius: 25px;

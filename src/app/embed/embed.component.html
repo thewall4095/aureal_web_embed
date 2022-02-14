@@ -1,6 +1,6 @@
-<div class="player-container" [class.overlayed]="overlayEnabled" [class.loadingRender]="initialLoading">
-    <div class="background-img" [style.background-image]="feedArtworkSafe"></div>
-    <content *ngIf="!showMore && !shareOpen">
+<div class="player-container" [class.overlayed]="overlayEnabled" [class.loadingRender]="initialLoading" #allcontent>
+    <div class="background-img" [style.background-color]="themeColor"></div>
+    <content *ngIf="!aboutData && !shareOpen">
       <div class="metadata">
         <div class="artwork">
           <div class="artworkBackground" [class.loaded]="artworkSafeLoaded" [style.background-image]="artworkSafeLoaded"></div>
@@ -55,14 +55,49 @@
             </div>
           </div>
         </section>
-        <div class="aureal-logo">
+        <!-- <div class="aureal-logo">
           <a href="https://aureal.one" target="_blank">
             <img src="/assets/images/Aureal_full_light.png" alt="Aureal logo">
           </a>
+        </div> -->
+      </div>
+      <div class="metadata" style="flex-direction: column;" *ngIf="showOtherEpisodes">
+        <!-- <div class="tabs">
+          <div class="each-tab" [ngClass]="{'active' : isCreatePodcast}">
+
+          </div>
+        </div> -->
+        <div class="other-episodes">Other episodes</div>
+        <div class="scrollable-section">
+          <div *ngFor="let episode of otherEpisodes;" class="each-episode" (click)="playOtherEpisode(episode)">
+            <div style="display: flex; align-items: center;">
+              <div class="image-part">
+                <div class="bg-overlay w100 absolute"></div>
+                <img [src]="episode.image" class="album-art lazyload">
+                <div class="glass-icon custom-glass-icon">
+                    <img src="/assets/images/play.svg" alt="" load-render>
+                </div>
+              </div>
+              <div class="episode-name truncate-overflow">
+                {{episode?.name}}
+              </div>
+            </div>
+            <div class="episode-duration">
+              <span>
+                {{formatDuration(episode.duration)}} 
+              </span>
+              <span>
+                {{episode.published_at | date: 'dd MMM yyyy'}}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+      <div>
+        
+      </div>
     </content>
-    <content *ngIf="showMore" class="show-more">
+    <content *ngIf="aboutData" class="show-more">
       <div class="close-icon">
         <a (click)="showInfoToggle()" id="share-button">
           <img class="nav-button" src="/assets/images/close_white_24dp.svg" alt="close">
